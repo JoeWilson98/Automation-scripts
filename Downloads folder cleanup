@@ -1,0 +1,56 @@
+import os
+import time
+import shutil
+
+#path of downloads folder for cleaning
+path = "C:/Users/Joe/Downloads"
+#acquiring the contents of the downloads folder
+contents = os.listdir(path)
+#printing out the contents of the downloads folder
+print(*contents, sep = "\n")
+#user input asking if they want to delete?
+user_input = input("Are there files that you wish to delete or remove? If yes press 'y'")
+#current time
+current_time = time.time()
+#day in seconds
+day = 86400
+if user_input == 'y':
+    deleted_any = False
+    #for loop to delete all files older than 14 days
+    for file in contents:
+        #searching in the downloads folder for each file
+        file_location = os.path.join(path, file)
+        #calculate the time the file was last modified
+        file_time = os.stat(file_location).st_mtime
+        #deleting only files, needs to include file location
+        if os.path.isfile(file_location):
+            #Delete all files that are older than 14 days
+            if file_time < current_time - (day * 14):
+                os.remove(file_location)
+                print("Deleted: {}".format(file))
+                deleted_any = True
+                print("Clean up completed.")
+    #print message if no files deleted
+    if not deleted_any:
+        print("No old files found.")
+
+
+    for file in contents:
+
+        #searching in downloads folder for each file
+        file_location = os.path.join(path, file)
+        #splitting the file to get the extension
+        name, ext = os.path.splitext(file)
+        #removing dot and putting the extension to lower pase
+        ext = ext[1:].lower()
+        if ext == '':
+            continue
+        #setting the path as the folder with the name of the extension
+        folder_path = os.path.join(path, ext)
+        #if the folder does not exist with the specific extension, create one
+        if not os.path.exists(folder_path):
+            os.makedirs(folder_path)
+        #moves file from its current location to the folder for its extension
+        shutil.move(file_location, os.path.join(folder_path, file))
+        #prints all moved folder and to which extension folder its been move to
+        print("Moved: {} -> {}".format(file_location, ext))
