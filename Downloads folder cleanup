@@ -34,7 +34,6 @@ if user_input == 'y':
     if not deleted_any:
         print("No old files found.")
 
-
     for file in contents:
 
         #searching in downloads folder for each file
