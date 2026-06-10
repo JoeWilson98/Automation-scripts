@@ -1,0 +1,9 @@
+import pandas as pd
+
+#load the excel file
+df = pd.read_excel("file path") #requires changing to the excel file path
+#remove duplicates
+df = df.drop_duplicates()
+#collate columns one and two in a new column
+df['new_column'] = df['column1'] + df['column2']
+
