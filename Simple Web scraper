@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 def scrape():
 
-    url = 'https://cv.matthewd0yle.com/'
+    url = ' '
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     print(soup.prettify())
